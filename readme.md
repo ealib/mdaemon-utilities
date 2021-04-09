@@ -5,7 +5,7 @@ mailing lists are stored in `*.grp` files.
 
 ## Usage
 
-Assume MDaemon is installed in `C:\MDaemon".
+Assume MDaemon is installed in `C:\MDaemon`.
 
 Run the script `mdgrp2csv.ts` passing the `*.grp` file as argument:
 
