@@ -1,0 +1,79 @@
+# Mailing List file
+#
+; ListName = example-list@example.com
+; Description = Example Mailing List
+; ReplyAddress =
+; Enabled = Y
+; Private = Y
+; SendReminders = N
+; HideFromAddressBook = N
+; AllowExpn = N
+; ListNameInSubject = N
+; RewriteFromDMARC = Y
+; DenyDMARCRejecters = N
+; ThreadNumbersInSubject = N
+; UseMemberNames = N
+; UseListName = N
+; UseStandardName = Y
+; ReplyToList = N
+; ReplyToEmail = Y
+; CrackMessage = Y
+; ForceUniqueID = Y
+; IgnoreRcptErrors = N
+; SubscribeNote = N
+; UnsubscribeNote = N
+; MsgTooBigNote = N
+; InformNonMember = N
+; SendStatusMessages = N
+; Moderated = N
+; PasswordPost = N
+; Subscribe = N
+; AuthSubscribe = Y
+; AuthAutoSubscribe = Y
+; Unsubscribe = N
+; AuthUnsubscribe = N
+; AuthAutoUnsubscribe = N
+; AutoPrune = N
+; EnableDigest = N
+; ForceDigestUse = N
+; ArchiveDigest = N
+; Nine = N
+; Twelve = N
+; Three = N
+; Six = N
+; AM = N
+; PM = N
+; DigestMBF = DIGEST
+; Notifications-To = [trash]
+; RoutingLimit = 0
+; MaxMessageSize = 0
+; PrecedenceLevel = 80
+; MaxMembers = 0
+; MaxMessageCount = 0
+; MaxLineCount = 0
+; ODBCDSN = 
+; ODBCUser = 
+; ODBCPass = 
+; ODBCTable = 
+; ODBCEmailFieldMapping = 
+; ODBCFirstNameFieldMapping = 
+; ODBCLastNameFieldMapping = 
+; ODBCReadOnlyQuery = 
+; ODBCPostOnlyQuery = 
+; ODBCNormalQuery = 
+; ODBCDigestQuery = 
+; ADBASEDN = 
+; ADSEARCHFILTER = (&(objectClass=user)(objectCategory=person))
+; ADATTRIBUTE = mail
+; ADUSERNAME = 
+; ADBINDFLAGS = 1
+; ADSEARCHSCOPE = 2
+; ADPAGESIZE = 1000
+; ADPASSWORD = 
+; DefaultMode = Normal
+
+john.smith@example.com John B. Smith
+^amelia.jones@example.com Amelia J. Jones
+$george.williams@example.com George T. Williams
+olivia.taylor@example.com Olivia A. Taylor
+emily.wright@example.com Emily J. Wright
