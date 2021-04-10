@@ -34,4 +34,9 @@ export class ListMember {
             this.toStr(this.sendOnly),
         );
     }
+
+    public toString(): string {
+        const mode = (this.receiveOnly ? '^' : '') + (this.sendOnly ? '$' : '');
+        return `${mode}${this.address} ${this.description}`;
+    }
 }
