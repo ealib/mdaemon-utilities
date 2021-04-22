@@ -2,23 +2,41 @@
 
 Simple admin utilities to be run by [Deno](https://deno.land).
 
-- `mdgrp` - Convert a *MDaemon mailing list* file to CSV.
-- `mdsend` - Queue a new message in MDaemon's raw queue.
+- [`mdgrp`](#mdgrp---convert-a-mdaemon-mailing-list-file-to-csv) - Convert a *MDaemon mailing list* file to CSV.
+- [`mdsend`](#mdsend---queue-a-new-message-in-mdaemons-raw-queue) - Queue a new message in MDaemon's raw queue.
 
 ## `mdgrp` - Convert a *MDaemon mailing list* file to CSV.
 
+> **WIP**
+
 [Mdaemon](https://en.wikipedia.org/wiki/MDaemon)
 mailing lists are stored in `*.grp` files.
+
+### Installation
+
+Run the [Deno *install*](https://deno.land/manual/tools/script_installer)
+command:
+
+```dos
+C:\Users\Administrator>deno install --allow-read --allow-write https://raw.githubusercontent.com/ealib/mdaemon-utilities/master/src/mdgrp.ts
+```
+
+Remember to (*permanently*) add the path where Deno install scripts to
+to `PATH`:
+
+```dos
+C:\Users\Administrator>set PATH=%PATH%;C:\Users\Administrator\.deno\bin
+```
 
 ### Example
 
 Assume MDaemon is installed in `C:\MDaemon`.
 
-Run the script `mdgrp.ts` passing the `*.grp` file as argument:
+Run the installed command `mdgrp` passing the `*.grp` file as argument:
 
-    deno run --allow-read --allow-write mdgrp.ts \
-        --from C:\MDaemon\App\example-list@example.com.grp
-        --to example-list@example.com.csv
+```
+C:\>mdgrp convert --from C:\MDaemon\App\example-list@example.com.grp --to example-list@example.com.csv
+```
 
 to generate `.\example-list@example.com.csv`:
 
@@ -35,14 +53,14 @@ to generate `.\example-list@example.com.csv`:
 
 ```
 Process MDaemon mailing list files (*.grp).
-Version 1.1.0
+Version 1.1.1
 
 Usage:
-  mdgrp.ts convert --from=<source_grp> --to=<target_file> [--debug]
-  mdgrp.ts backup --app-dir=<app_dir> --backup-dir=<backup_dir> [--overwrite] [--debug] 
-  mdgrp.ts restore --backup-dir=<backup_dir> --app-dir=<app_dir> [--overwrite] [--debug]
-  mdgrp.ts -h | --help
-  mdgrp.ts --version
+  mdgrp convert --from=<source_grp> --to=<target_file> [--debug]
+  mdgrp backup --app-dir=<app_dir> --backup-dir=<backup_dir> [--overwrite] [--debug]
+  mdgrp restore --backup-dir=<backup_dir> --app-dir=<app_dir> [--overwrite] [--debug]
+  mdgrp -h | --help
+  mdgrp --version
 
 Options:
   -h --help                  Show this screen.
@@ -52,22 +70,38 @@ Options:
   --app-dir=<app_dir>        MDaemon "App" directory.
   --backup-dir=<backup_dir>  Backup directory.
   --overwrite                Overwrite output files.
-  --debug                    Run in debug mode.
+  --debug                    Run in debug mode.```
+```
+## `mdsend` - Queue a new message in MDaemon's raw queue.
+
+> **WIP**
+
+### Installation
+
+Run the [Deno *install*](https://deno.land/manual/tools/script_installer)
+command:
+
+```dos
+C:\Users\Administrator>deno install --allow-write https://raw.githubusercontent.com/ealib/mdaemon-utilities/master/src/mdsend.ts
 ```
 
-## `mdsend` - Queue a new message in MDaemon's raw queue.
+Remember to (*permanently*) add the path where Deno install scripts to
+to `PATH`:
+
+```dos
+C:\Users\Administrator>set PATH=%PATH%;C:\Users\Administrator\.deno\bin
+```
 
 ### Synopsys
 
 ```
-deno run --allow-write mdsend.ts --help                                                                      
 Queue a new message in MDaemon's raw queue.
 Version 1.0.0
 
 Usage:
-  mdsend.ts --subject <text> --from=<address> --to=<address> [--cc=<address>] [--bcc=<address>] [--debug]
-  mdsend.ts -h | --help
-  mdsend.ts --version
+  mdsend --subject <text> --from=<address> --to=<address> [--cc=<address>] [--bcc=<address>] [--debug]
+  mdsend -h | --help
+  mdsend --version
 
 Options:
   -h --help            Show this screen.
