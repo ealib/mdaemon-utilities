@@ -18,7 +18,7 @@ Run the [Deno *install*](https://deno.land/manual/tools/script_installer)
 command:
 
 ```dos
-C:\Users\Administrator>deno install --allow-read --allow-write https://raw.githubusercontent.com/ealib/mdaemon-utilities/master/src/mdgrp.ts
+C:\Users\Administrator>deno install --allow-env --allow-read --allow-write https://raw.githubusercontent.com/ealib/mdaemon-utilities/master/src/mdgrp.ts
 ```
 
 Remember to (*permanently*) add the path where Deno install scripts to
@@ -88,7 +88,7 @@ Run the [Deno *install*](https://deno.land/manual/tools/script_installer)
 command:
 
 ```dos
-C:\Users\Administrator>deno install --allow-write https://raw.githubusercontent.com/ealib/mdaemon-utilities/master/src/mdsend.ts
+C:\Users\Administrator>deno install --allow-env --allow-write https://raw.githubusercontent.com/ealib/mdaemon-utilities/master/src/mdsend.ts
 ```
 
 Remember to (*permanently*) add the path where Deno install scripts to

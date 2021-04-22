@@ -8,6 +8,9 @@ interface MDaemonUtilitiesSchema {
 export class Settings {
     private _settings?: MDaemonUtilitiesSchema;
 
+    public readonly home: string;
+    public readonly fileName: string;
+
     public get appPath(): string {
         const defaultValue = 'C:\\MDaemon\\App';
         return this._settings ? (this._settings.appPath ?? defaultValue) : defaultValue;
@@ -21,8 +24,10 @@ export class Settings {
     }
 
     constructor(settingsJson?: string) {
-        const fileName = settingsJson ?? 'mdaemon-utilities.json';
-        const settings = Deno.readTextFileSync(fileName);
+        this.home = Deno.env.get((Deno.build.os === 'windows') ? 'USERPROFILE' : 'HOME') ?? '.';
+        const defaultValue = path.join(this.home, 'mdaemon-utilities.json');
+        this.fileName = settingsJson ?? defaultValue;
+        const settings = Deno.readTextFileSync(this.fileName);
         this._settings = JSON.parse(settings);
     }
 
