@@ -1,4 +1,4 @@
-import docopt from "https://deno.land/x/docopt@v1.0.7/mod.ts";
+import { docopt } from './deps.ts';
 
 export abstract class DocOptions {
     protected options: any;

@@ -1,16 +1,20 @@
+import { path } from '../lib/deps.ts';
+
 import { DocOptions } from "../lib/DocOptions.ts";
 import { MdRawMessage } from '../lib/MdRawMessage.ts';
+import { Settings } from "../lib/Settings.ts";
 
-const version = '1.0.0';
+const version = '1.1.0';
+const name = Settings.basename(import.meta.url, '.ts');
 
 const doc = `
 Queue a new message in MDaemon's raw queue.
 Version ${version}
 
 Usage:
-  ${import.meta.url} --subject <text> --from=<address> --to=<address> [--cc=<address>] [--bcc=<address>] [--debug]
-  ${import.meta.url} -h | --help
-  ${import.meta.url} --version
+  ${name} --subject <text> --from=<address> --to=<address> [--cc=<address>] [--bcc=<address>] [--debug]
+  ${name} -h | --help
+  ${name} --version
 
 Options:
   -h --help            Show this screen.
@@ -32,9 +36,9 @@ async function prompt(message: string = '') {
 }
 
 function debugPrint(title: string, message: string) {
-    console.log('--- ' + title);
+    console.log(`<${title}>`);
     console.log(message);
-    console.log('---');
+    console.log(`</${title}>`);
 }
 
 class CommandOptions extends DocOptions {
@@ -62,8 +66,12 @@ class CommandOptions extends DocOptions {
 class MessageSender {
     private rawMessage: MdRawMessage | undefined;
 
-    constructor(private options: CommandOptions) {
+    constructor(
+        private settings: Settings,
+        private options: CommandOptions
+    ) {
         if (options.debug) {
+            debugPrint('SETTINGS', JSON.stringify(settings, null, '\n'));
             debugPrint('OPTIONS', JSON.stringify(options, null, '\t'));
         }
     }
@@ -101,7 +109,7 @@ class MessageSender {
                 await this.spool();
                 return true;
             } else {
-                console.log('Message discarderd.');
+                console.log('Message discarded.');
                 return false;
             }
 
@@ -136,10 +144,12 @@ class MessageSender {
     private async spool() {
         if (this.rawMessage) {
             const fileName = `md${Math.trunc(Math.random() * 100000)}.raw`;
+            // FIXME: read Settings.iniPath: [Directories] Raw
+            const fullName = path.join(this.settings.mdaemonPath, 'Queues', 'Raw', fileName);
             if (this.options.debug) {
-                debugPrint('RAW MESSAGE FILE', fileName);
+                debugPrint('RAW MESSAGE FILE', fullName);
             }
-            return Deno.writeTextFile(fileName, this.rawMessage.toString());
+            return Deno.writeTextFile(fullName, this.rawMessage.toString());
         }
         throw new Error('Internal error (spool)');
     }
@@ -148,7 +158,11 @@ class MessageSender {
 
 try {
     const options = new CommandOptions(doc);
-    const messageSender = new MessageSender(options);
+    const settings = new Settings();
+    if (options.debug) {
+        console.log('Mdaemon is in ' + settings.mdaemonPath);
+    }
+    const messageSender = new MessageSender(settings, options);
     messageSender.go()
         .then((sent) => {
             if (sent) {

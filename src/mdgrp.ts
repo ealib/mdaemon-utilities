@@ -1,20 +1,23 @@
+import { path } from '../lib/deps.ts';
 
 import { DocOptions } from "../lib/DocOptions.ts";
+import { Settings } from "../lib/Settings.ts";
 import { MdGrpFileParser } from '../lib/MdGrpFileParser.ts';
 import { ListMember } from '../lib/ListMember.ts';
 
-const version = `1.1.1`;
+const version = `1.2.0`;
+const name = Settings.basename(import.meta.url, '.ts');
 
 const doc = `
 Process MDaemon mailing list files (*.grp).
 Version ${version}
 
 Usage:
-  ${import.meta.url} convert --from=<source_grp> --to=<target_file> [--debug]
-  ${import.meta.url} backup --app-dir=<app_dir> --backup-dir=<backup_dir> [--overwrite] [--debug]
-  ${import.meta.url} restore --backup-dir=<backup_dir> --app-dir=<app_dir> [--overwrite] [--debug]
-  ${import.meta.url} -h | --help
-  ${import.meta.url} --version
+  ${name} convert --from=<source_grp> --to=<target_file> [--debug]
+  ${name} backup --app-dir=<app_dir> --backup-dir=<backup_dir> [--overwrite] [--debug]
+  ${name} restore --backup-dir=<backup_dir> --app-dir=<app_dir> [--overwrite] [--debug]
+  ${name} -h | --help
+  ${name} --version
 
 Options:
   -h --help                  Show this screen.
@@ -60,7 +63,7 @@ class CommandOptions extends DocOptions {
     }
 }
 
-function convert(options: CommandOptions) {
+function convert(settings: Settings, options: CommandOptions) {
     console.log(`Converting ${options.from} to ${options.to}:`);
     const csvName = options.to;
     const parser = new MdGrpFileParser(options.from);
@@ -75,19 +78,27 @@ function convert(options: CommandOptions) {
         .catch((err) => console.error(err));
 }
 
-function backup(options: CommandOptions) {
+function backup(settings: Settings, options: CommandOptions) {
     console.log(`Backing up from ${options.appDir} to ${options.backupDir}`);
-    const parser = new MdGrpFileParser(options.appDir);
-    parser.parse()
-        .then((mdGrp) => {
-            // TODO
-            Deno.writeTextFileSync(options.backupDir, mdGrp.toString());
-            console.log('Done.');
-        });
-    console.error('NOT IMPLEMENTED');
+    const grps: string[] = [];
+
+    for (const dirEntry of Deno.readDirSync(options.appDir)) {
+        if (dirEntry.isFile && dirEntry.name.endsWith('.grp')) {
+            grps.push(dirEntry.name);
+        }
+    }
+
+    grps.forEach((grpName) => {
+        const grpFullName = path.join(options.appDir, grpName);
+        const parser = new MdGrpFileParser(grpFullName);
+        parser.parse()
+            .then((mdGrp) => {
+                Deno.writeTextFileSync(options.backupDir, mdGrp.toString());
+            });
+    });
 }
 
-function restore(options: CommandOptions) {
+function restore(settings: Settings, options: CommandOptions) {
     console.log(`Restoring backup to ${options.appDir} from ${options.backupDir}`);
     console.error('NOT IMPLEMENTED');
 }
@@ -96,6 +107,10 @@ function restore(options: CommandOptions) {
 
 try {
     const options = new CommandOptions(doc);
+    const settings = new Settings();
+    if (options.debug) {
+        console.log('Mdaemon is in ' + settings.mdaemonPath);
+    }
 
     if (options.debug) {
         console.log(JSON.stringify(options, null, '\t'));
@@ -104,9 +119,9 @@ try {
     if (options.version) {
         console.log(version);
     } else {
-        if (options.convert) { convert(options); }
-        else if (options.backup) { backup(options); }
-        else if (options.restore) { restore(options); }
+        if (options.convert) { convert(settings, options); }
+        else if (options.backup) { backup(settings, options); }
+        else if (options.restore) { restore(settings, options); }
         else { console.log('Unknown command. Use --help.'); }
     }
 }
