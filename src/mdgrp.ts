@@ -3,7 +3,7 @@ import { DocOptions } from "../lib/DocOptions.ts";
 import { MdGrpFileParser } from '../lib/MdGrpFileParser.ts';
 import { ListMember } from '../lib/ListMember.ts';
 
-const version = `1.1.0`;
+const version = `1.1.1`;
 
 const doc = `
 Process MDaemon mailing list files (*.grp).
@@ -113,10 +113,3 @@ try {
 catch (e) {
     console.error(e.message);
 }
-
-/*
-if (Deno.args.length > 0) {
-    Deno.args.forEach((arg, index) => {
-    });
-}
-*/
