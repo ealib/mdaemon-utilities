@@ -12,7 +12,7 @@ Queue a new message in MDaemon's raw queue.
 Version ${version}
 
 Usage:
-  ${name} --subject <text> --from=<address> --to=<address> [--cc=<address>] [--bcc=<address>] [--debug]
+  ${name} --subject=<text> --from=<address> --to=<address> [--cc=<address>] [--bcc=<address>] [--debug]
   ${name} -h | --help
   ${name} --version
 
