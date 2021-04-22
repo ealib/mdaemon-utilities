@@ -76,6 +76,12 @@ Options:
 
 > **WIP**
 
+[Mdaemon](https://en.wikipedia.org/wiki/MDaemon)
+[raw messages](http://help.altn.com/mdaemon/en/raw_the_raw_message_specification.html)
+are a job specification for the queue system. Queue system will take the
+job, process it and, if correct, queue a real e-mail message in one or
+more message queue(s) for delivery.
+
 ### Installation
 
 Run the [Deno *install*](https://deno.land/manual/tools/script_installer)
