@@ -1,11 +1,15 @@
+> ---
+> _WARNING_: this is **not** ready for production.
+> ---
+
 # MDaemon Utilities
 
 Simple admin utilities to be run by [Deno](https://deno.land).
 
-- [`mdgrp`](#mdgrp---convert-a-mdaemon-mailing-list-file-to-csv) - Convert a *MDaemon mailing list* file to CSV.
+- [`mdgrp`](#mdgrp---convert-a-mdaemon-mailing-list-file-to-csv) - Convert a _MDaemon mailing list_ file to CSV.
 - [`mdsend`](#mdsend---queue-a-new-message-in-mdaemons-raw-queue) - Queue a new message in MDaemon's raw queue.
 
-## `mdgrp` - Convert a *MDaemon mailing list* file to CSV.
+## `mdgrp` - Convert a _MDaemon mailing list_ file to CSV.
 
 > **WIP**
 
@@ -14,14 +18,14 @@ mailing lists are stored in `*.grp` files.
 
 ### Installation
 
-Run the [Deno *install*](https://deno.land/manual/tools/script_installer)
+Run the [Deno _install_](https://deno.land/manual/tools/script_installer)
 command:
 
 ```dos
 C:\Users\Administrator>deno install --allow-env --allow-read --allow-write https://raw.githubusercontent.com/ealib/mdaemon-utilities/master/src/mdgrp.ts
 ```
 
-Remember to (*permanently*) add the path where Deno install scripts to
+Remember to (_permanently_) add the path where Deno install scripts to
 to `PATH`:
 
 ```dos
@@ -41,17 +45,16 @@ C:\>mdgrp convert --from C:\MDaemon\App\example-list@example.com.grp --to exampl
 to generate `.\example-list@example.com.csv`:
 
 | ADDRESS                     | DESCRIPTION        | NORMAL | RECEIVE ONLY | SEND ONLY |
-|-----------------------------|--------------------|--------|--------------|-----------|
+| --------------------------- | ------------------ | ------ | ------------ | --------- |
 | john.smith@example.com      | John B. Smith      | x      |              |           |
 | amelia.jones@example.com    | Amelia J. Jones    |        | x            |           |
 | george.williams@example.com | George T. Williams |        |              | x         |
 | olivia.taylor@example.com   | Olivia A. Taylor   | x      |              |           |
 | emily.wright@example.com    | Emily J. Wright    | x      |              |           |
 
-
 ### Synopsys
 
-```
+````
 Process MDaemon mailing list files (*.grp).
 Version 1.1.1
 
@@ -71,7 +74,8 @@ Options:
   --backup-dir=<backup_dir>  Backup directory.
   --overwrite                Overwrite output files.
   --debug                    Run in debug mode.```
-```
+````
+
 ## `mdsend` - Queue a new message in MDaemon's raw queue.
 
 > **WIP**
@@ -84,14 +88,14 @@ more message queue(s) for delivery.
 
 ### Installation
 
-Run the [Deno *install*](https://deno.land/manual/tools/script_installer)
+Run the [Deno _install_](https://deno.land/manual/tools/script_installer)
 command:
 
 ```dos
 C:\Users\Administrator>deno install --allow-env --allow-write https://raw.githubusercontent.com/ealib/mdaemon-utilities/master/src/mdsend.ts
 ```
 
-Remember to (*permanently*) add the path where Deno install scripts to
+Remember to (_permanently_) add the path where Deno install scripts to
 to `PATH`:
 
 ```dos
